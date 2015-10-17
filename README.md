@@ -39,11 +39,6 @@ let tuner = Tuner()
 let delegate = MyTunerDelegate()
 tuner.delegate = delegate
 tuner.start()
-
-// And maybe some time later...
-
-tuner.stop()
-
 ```
 
 # License 
