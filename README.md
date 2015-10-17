@@ -40,7 +40,7 @@ let delegate = MyTunerDelegate()
 tuner.delegate = delegate
 tuner.start()
 
-// Some time later...
+// And maybe some time later...
 
 tuner.stop()
 
