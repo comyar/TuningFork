@@ -1,6 +1,6 @@
 ![](header.png)
 
-# Overview
+### Overview
 
 TuningFork is a simple utility for processing microphone input and interpreting pitch, frequency, amplitude, etc. 
 
