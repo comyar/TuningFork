@@ -46,11 +46,6 @@ tuner.stop()
 
 ```
 
-# Requirements
-
-* iOS 8.0 or higher
-* OS X 10.10 or higher
-
 # License 
 
 TuningFork is available under the [MIT License](LICENSE).
