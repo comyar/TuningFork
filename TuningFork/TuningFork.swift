@@ -173,7 +173,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     public init(threshold: Float = 0.0) {
         self.threshold = abs(threshold)
         microphone = Microphone()
-        analyzer = AKAudioAnalyzer(audioSource: microphone.output)
+        analyzer = AKAudioAnalyzer(input: microphone.output)
         AKOrchestra.addInstrument(microphone)
         AKOrchestra.addInstrument(analyzer)
     }
