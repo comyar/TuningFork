@@ -103,12 +103,12 @@ Contains information decoded by a Tuner, such as frequency, octave, pitch, etc.
     
     private override init() {}
     
-    private func amplitude(amplitude: Float) -> TunerOutput {
+    private func a(amplitude: Float) -> TunerOutput {
         self.amplitude = amplitude
         return self
     }
     
-    private func frequency(frequency: Float) -> TunerOutput {
+    private func f(frequency: Float) -> TunerOutput {
         self.frequency = frequency
         
         var norm = frequency
@@ -190,8 +190,8 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
                 if let d = self.delegate {
                     if self.analyzer.trackedAmplitude.value > self.threshold {
                         let output = TunerOutput()
-                            .amplitude(self.analyzer.trackedAmplitude.value)
-                            .frequency(self.analyzer.trackedFrequency.value)
+                            .a(self.analyzer.trackedAmplitude.value)
+                            .f(self.analyzer.trackedFrequency.value)
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             d.tunerDidUpdate(self, output: output)
                         })
