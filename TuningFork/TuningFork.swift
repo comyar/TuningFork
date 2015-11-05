@@ -99,38 +99,29 @@ Contains information decoded by a Tuner, such as frequency, octave, pitch, etc.
     /**
     The frequency of the microphone audio.
     */
-    public private(set) var frequency: Float = 0.0
+    public private(set) var frequency: Float = 0.0 {
+        didSet {
+            var norm = frequency
+            while norm > frequencies[frequencies.count - 1] {
+                norm = norm / 2.0
+            }
+            while norm < frequencies[0] {
+                norm = norm * 2.0
+            }
+            
+            let x = frequencies.map { (f) -> Float in
+                abs(f.distanceTo(norm))
+                }.enumerate().reduce((0, Float.infinity)) {
+                    $0.1 < $1.1 ? $0 : $1
+            }
+            
+            octave = x.0 / 12
+            distance = frequency - frequencies[x.0]
+            pitch = String(format: "%@", sharps[x.0 % sharps.count], flats[x.0 % flats.count])
+        }
+    }
     
     private override init() {}
-    
-    private func a(amplitude: Float) -> TunerOutput {
-        self.amplitude = amplitude
-        return self
-    }
-    
-    private func f(frequency: Float) -> TunerOutput {
-        self.frequency = frequency
-        
-        var norm = frequency
-        while norm > frequencies[frequencies.count - 1] {
-            norm = norm / 2.0
-        }
-        while norm < frequencies[0] {
-            norm = norm * 2.0
-        }
-        
-        let x = frequencies.map { (f) -> Float in
-            abs(f.distanceTo(norm))
-        }.enumerate().reduce((0, Float.infinity)) {
-                $0.1 < $1.1 ? $0 : $1
-        }
-        
-        octave = x.0 / 12
-        distance = frequency - frequencies[x.0]
-        pitch = String(format: "%@", sharps[x.0 % sharps.count], flats[x.0 % flats.count])
-        
-        return self
-    }
 }
 
 
@@ -178,8 +169,8 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
                 if let d = self.delegate {
                     if self.analyzer.trackedAmplitude.value > self.threshold {
                         let output = TunerOutput()
-                            .a(self.analyzer.trackedAmplitude.value)
-                            .f(self.analyzer.trackedFrequency.value)
+                        output.amplitude = self.analyzer.trackedAmplitude.value
+                        output.frequency = self.analyzer.trackedFrequency.value
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             d.tunerDidUpdate(self, output: output)
                         })
