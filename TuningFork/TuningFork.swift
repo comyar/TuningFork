@@ -147,21 +147,8 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     */
     public var delegate: TunerDelegate?
     
-    private class Microphone: AKInstrument {
-        
-        private let output: AKAudio
-        private let input: AKAudioInput
-        
-        override init() {
-            input = AKAudioInput()
-            output = AKAudio.globalParameter()
-            super.init()
-            assignOutput(output, to: input)
-        }
-    }
-    
     private let threshold: Float
-    private let microphone: Microphone
+    private let microphone: AKMicrophone
     private let analyzer: AKAudioAnalyzer
     private var timer: DispatchTimer?
     
@@ -172,7 +159,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     */
     public init(threshold: Float = 0.0) {
         self.threshold = abs(threshold)
-        microphone = Microphone()
+        microphone = AKMicrophone()
         analyzer = AKAudioAnalyzer(input: microphone.output)
         AKOrchestra.addInstrument(microphone)
         AKOrchestra.addInstrument(analyzer)
@@ -182,6 +169,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     Starts the tuner.
     */
     public func start() {
+        AKSettings.shared().audioInputEnabled = true
         microphone.start()
         analyzer.start()
         
