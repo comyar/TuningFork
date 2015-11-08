@@ -181,10 +181,10 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
             norm = norm * 2.0
         }
         
-        var i = 0
-        var min = frequencies[0]
-        for n in 0...frequencies.count {
-            if abs(frequencies[n].distanceTo(norm)) < min {
+        var i = -1
+        var min = Float.infinity
+        for n in 0...frequencies.count-1 {
+            if abs(frequencies[n] - norm) < min {
                 min = frequencies[n]
                 i = n
             }
