@@ -99,27 +99,7 @@ Contains information decoded by a Tuner, such as frequency, octave, pitch, etc.
     /**
     The frequency of the microphone audio.
     */
-    public private(set) var frequency: Float = 0.0 {
-        didSet {
-            var norm = frequency
-            while norm > frequencies[frequencies.count - 1] {
-                norm = norm / 2.0
-            }
-            while norm < frequencies[0] {
-                norm = norm * 2.0
-            }
-            
-            let x = frequencies.map { (f) -> Float in
-                abs(f.distanceTo(norm))
-                }.enumerate().reduce((0, Float.infinity)) {
-                    $0.1 < $1.1 ? $0 : $1
-            }
-            
-            octave = x.0 / 12
-            distance = frequency - frequencies[x.0]
-            pitch = String(format: "%@", sharps[x.0 % sharps.count], flats[x.0 % flats.count])
-        }
-    }
+    public private(set) var frequency: Float = 0.0
     
     private override init() {}
 }
@@ -168,9 +148,8 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
             timer = DispatchTimer(interval: 0.1, closure: { (t, i) -> Void in
                 if let d = self.delegate {
                     if self.analyzer.trackedAmplitude.value > self.threshold {
-                        let output = TunerOutput()
-                        output.amplitude = self.analyzer.trackedAmplitude.value
-                        output.frequency = self.analyzer.trackedFrequency.value
+                        let output = self.newOutput(self.analyzer.trackedAmplitude.value,
+                            self.analyzer.trackedFrequency.value)
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             d.tunerDidUpdate(self, output: output)
                         })
@@ -189,5 +168,35 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
         microphone.stop()
         analyzer.stop()
         timer?.pause()
+    }
+    
+    private func newOutput(frequency: Float, _ amplitude: Float) -> TunerOutput {
+        let output = TunerOutput()
+        
+        var norm = frequency
+        while norm > frequencies[frequencies.count - 1] {
+            norm = norm / 2.0
+        }
+        while norm < frequencies[0] {
+            norm = norm * 2.0
+        }
+        
+        var i = 0
+        var min = frequencies[0]
+        for n in 0...frequencies.count {
+            if abs(frequencies[n].distanceTo(norm)) < min {
+                min = frequencies[n]
+                i = n
+            }
+        
+        }
+        
+        output.octave = i / 12
+        output.frequency = frequency
+        output.amplitude = amplitude
+        output.distance = frequency - frequencies[i]
+        output.pitch = String(format: "%@", sharps[i % sharps.count], flats[i % flats.count])
+        
+        return output
     }
 }
