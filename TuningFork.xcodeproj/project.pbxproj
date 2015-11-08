@@ -9,8 +9,20 @@
 /* Begin PBXBuildFile section */
 		15C08051ACC9CCE6A021A0EC /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC562D282D159CBA9E3862E9 /* Pods.framework */; };
 		DD28EB0D1BD21EC000DA041C /* TuningFork.h in Headers */ = {isa = PBXBuildFile; fileRef = DD28EB0C1BD21EC000DA041C /* TuningFork.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DD28EB261BD21F5300DA041C /* TuningFork.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD28EB251BD21F5300DA041C /* TuningFork.swift */; settings = {ASSET_TAGS = (); }; };
+		DD28EB261BD21F5300DA041C /* TuningFork.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD28EB251BD21F5300DA041C /* TuningFork.swift */; };
+		DDBA27D91BEFEAAF00A41D1E /* TuningForkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBA27D81BEFEAAF00A41D1E /* TuningForkTests.swift */; };
+		DDBA27DB1BEFEAAF00A41D1E /* TuningFork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD28EB091BD21EC000DA041C /* TuningFork.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DDBA27DC1BEFEAAF00A41D1E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD28EB001BD21EC000DA041C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD28EB081BD21EC000DA041C;
+			remoteInfo = TuningFork;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9D47383D5BD416C8DAC4B0B9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -20,6 +32,9 @@
 		DD28EB0C1BD21EC000DA041C /* TuningFork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TuningFork.h; sourceTree = "<group>"; };
 		DD28EB0E1BD21EC000DA041C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD28EB251BD21F5300DA041C /* TuningFork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuningFork.swift; sourceTree = "<group>"; };
+		DDBA27D61BEFEAAF00A41D1E /* TuningForkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TuningForkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDBA27D81BEFEAAF00A41D1E /* TuningForkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuningForkTests.swift; sourceTree = "<group>"; };
+		DDBA27DA1BEFEAAF00A41D1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +43,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				15C08051ACC9CCE6A021A0EC /* Pods.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDBA27D31BEFEAAF00A41D1E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDBA27DB1BEFEAAF00A41D1E /* TuningFork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				DD28EB0B1BD21EC000DA041C /* TuningFork */,
+				DDBA27D71BEFEAAF00A41D1E /* TuningForkTests */,
 				DD28EB0A1BD21EC000DA041C /* Products */,
 				D80BA6AE7C41BC514EFCCEE0 /* Pods */,
 				EED98AFDF2B81B71965D05F4 /* Frameworks */,
@@ -57,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				DD28EB091BD21EC000DA041C /* TuningFork.framework */,
+				DDBA27D61BEFEAAF00A41D1E /* TuningForkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -77,6 +102,15 @@
 				DD28EB0E1BD21EC000DA041C /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DDBA27D71BEFEAAF00A41D1E /* TuningForkTests */ = {
+			isa = PBXGroup;
+			children = (
+				DDBA27D81BEFEAAF00A41D1E /* TuningForkTests.swift */,
+				DDBA27DA1BEFEAAF00A41D1E /* Info.plist */,
+			);
+			path = TuningForkTests;
 			sourceTree = "<group>";
 		};
 		EED98AFDF2B81B71965D05F4 /* Frameworks */ = {
@@ -121,18 +155,39 @@
 			productReference = DD28EB091BD21EC000DA041C /* TuningFork.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		DDBA27D51BEFEAAF00A41D1E /* TuningForkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDBA27E01BEFEAAF00A41D1E /* Build configuration list for PBXNativeTarget "TuningForkTests" */;
+			buildPhases = (
+				DDBA27D21BEFEAAF00A41D1E /* Sources */,
+				DDBA27D31BEFEAAF00A41D1E /* Frameworks */,
+				DDBA27D41BEFEAAF00A41D1E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DDBA27DD1BEFEAAF00A41D1E /* PBXTargetDependency */,
+			);
+			name = TuningForkTests;
+			productName = TuningForkTests;
+			productReference = DDBA27D61BEFEAAF00A41D1E /* TuningForkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		DD28EB001BD21EC000DA041C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Comyar Zaheri";
 				TargetAttributes = {
 					DD28EB081BD21EC000DA041C = {
 						CreatedOnToolsVersion = 7.0.1;
+					};
+					DDBA27D51BEFEAAF00A41D1E = {
+						CreatedOnToolsVersion = 7.1;
 					};
 				};
 			};
@@ -149,12 +204,20 @@
 			projectRoot = "";
 			targets = (
 				DD28EB081BD21EC000DA041C /* TuningFork */,
+				DDBA27D51BEFEAAF00A41D1E /* TuningForkTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DD28EB071BD21EC000DA041C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDBA27D41BEFEAAF00A41D1E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -205,7 +268,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DDBA27D21BEFEAAF00A41D1E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDBA27D91BEFEAAF00A41D1E /* TuningForkTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DDBA27DD1BEFEAAF00A41D1E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD28EB081BD21EC000DA041C /* TuningFork */;
+			targetProxy = DDBA27DC1BEFEAAF00A41D1E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DD28EB1B1BD21EC000DA041C /* Debug */ = {
@@ -336,6 +415,28 @@
 			};
 			name = Release;
 		};
+		DDBA27DE1BEFEAAF00A41D1E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TuningForkTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.comyarzaheri.TuningForkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DDBA27DF1BEFEAAF00A41D1E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TuningForkTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.comyarzaheri.TuningForkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -356,6 +457,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		DDBA27E01BEFEAAF00A41D1E /* Build configuration list for PBXNativeTarget "TuningForkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDBA27DE1BEFEAAF00A41D1E /* Debug */,
+				DDBA27DF1BEFEAAF00A41D1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

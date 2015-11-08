@@ -170,7 +170,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
         timer?.pause()
     }
     
-    private func newOutput(frequency: Float, _ amplitude: Float) -> TunerOutput {
+    func newOutput(frequency: Float, _ amplitude: Float) -> TunerOutput {
         let output = TunerOutput()
         
         var norm = frequency
@@ -184,11 +184,11 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
         var i = -1
         var min = Float.infinity
         for n in 0...frequencies.count-1 {
-            if abs(frequencies[n] - norm) < min {
-                min = frequencies[n]
+            let diff = frequencies[n] - norm
+            if abs(diff) < abs(min) {
+                min = diff
                 i = n
             }
-        
         }
         
         output.octave = i / 12
