@@ -148,7 +148,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
             timer = DispatchTimer(interval: 0.1, closure: { (t, i) -> Void in
                 if let d = self.delegate {
                     if self.analyzer.trackedAmplitude.value > self.threshold {
-                        let output = self.newOutput(self.analyzer.trackedAmplitude.value,
+                        let output = Tuner.newOutput(self.analyzer.trackedAmplitude.value,
                             self.analyzer.trackedFrequency.value)
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             d.tunerDidUpdate(self, output: output)
@@ -170,7 +170,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
         timer?.pause()
     }
     
-    func newOutput(frequency: Float, _ amplitude: Float) -> TunerOutput {
+    static func newOutput(frequency: Float, _ amplitude: Float) -> TunerOutput {
         let output = TunerOutput()
         
         var norm = frequency

@@ -12,8 +12,7 @@ import XCTest
 class TuningForkTests: XCTestCase {
     
     func testOutput() {
-        let tuner  = Tuner()
-        let output = tuner.newOutput(440, 1.0)
+        let output = Tuner.newOutput(440, 1.0)
         XCTAssertEqual(output.frequency, 440)
         XCTAssertEqual(output.octave, 4)
         XCTAssertEqual(output.amplitude, 1.0)
