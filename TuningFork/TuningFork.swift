@@ -148,8 +148,8 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
             timer = DispatchTimer(interval: 0.1, closure: { (t, i) -> Void in
                 if let d = self.delegate {
                     if self.analyzer.trackedAmplitude.value > self.threshold {
-                        let output = Tuner.newOutput(self.analyzer.trackedAmplitude.value,
-                            self.analyzer.trackedFrequency.value)
+                        let output = Tuner.newOutput(self.analyzer.trackedFrequency.value,
+                            self.analyzer.trackedAmplitude.value)
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             d.tunerDidUpdate(self, output: output)
                         })
