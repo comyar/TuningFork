@@ -8,6 +8,8 @@
 
 TuningFork is a simple utility for processing microphone input and interpreting pitch, frequency, amplitude, etc. 
 
+TuningFork powers the [Partita](https://github.com/comyarzaheri/Partita) instrument tuner app.
+
 # Usage 
 
 ### Quick Start
