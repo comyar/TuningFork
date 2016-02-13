@@ -14,7 +14,7 @@ TuningFork powers the [Partita](https://github.com/comyarzaheri/Partita) instrum
 
 ### Quick Start
 
-##### Cocoa Pods
+##### CocoaPods
 
 Add the following to your Podfile:
 
