@@ -5,4 +5,4 @@ inhibit_all_warnings!
 use_frameworks!
 
 pod 'AudioKit', '~> 2.3'
-pod 'Chronos-Swift'
+pod 'Chronos-Swift', '~> 0.2.2'
