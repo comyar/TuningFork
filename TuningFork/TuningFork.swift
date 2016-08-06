@@ -62,7 +62,7 @@ by a Tuner.
   - parameter tuner: Tuner that performed the update.
   - parameter output: Contains information decoded by the Tuner.
   */
-  func tunerDidUpdate(tuner: Tuner, output: TunerOutput)
+  func tunerDidUpdate(_ tuner: Tuner, output: TunerOutput)
 }
 
 // MARK:- TunerOutput
@@ -112,7 +112,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
 */
 @objc public class Tuner: NSObject {
   
-  private let updateInterval: NSTimeInterval = 0.03
+  private let updateInterval: TimeInterval = 0.03
   private let smoothingBufferCount = 30
     
   /**
@@ -140,8 +140,8 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     self.smoothing = min(abs(smoothing), 1.0)
     microphone = AKMicrophone()
     analyzer = AKAudioAnalyzer(input: microphone.output)
-    AKOrchestra.addInstrument(microphone)
-    AKOrchestra.addInstrument(analyzer)
+    AKOrchestra.add(microphone)
+    AKOrchestra.add(analyzer)
   }
   
   /**
@@ -183,7 +183,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
    Exponential smoothing:
    https://en.wikipedia.org/wiki/Exponential_smoothing
   */
-  private func smooth(value: Float) -> Float {
+  private func smooth(_ value: Float) -> Float {
     var frequency = value
     if smoothingBuffer.count > 0 {
       let last = smoothingBuffer.last!
@@ -196,7 +196,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     return frequency
   }
   
-  static func newOutput(frequency: Float, _ amplitude: Float) -> TunerOutput {
+  static func newOutput(_ frequency: Float, _ amplitude: Float) -> TunerOutput {
     let output = TunerOutput()
     
     var norm = frequency
