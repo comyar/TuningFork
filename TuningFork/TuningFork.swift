@@ -124,7 +124,8 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
   fileprivate let threshold: Double
   fileprivate let smoothing: Double
   fileprivate let microphone: AKMicrophone
-  fileprivate let analyzer: AKFrequencyTracker
+  fileprivate let tracker: AKFrequencyTracker
+  fileprivate let silence: AKBooster
   fileprivate var timer: DispatchTimer?
   fileprivate var smoothingBuffer: [Double] = []
   
@@ -139,23 +140,25 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     self.threshold = Double(min(abs(threshold), 1.0))
     self.smoothing = Double(min(abs(smoothing), 1.0))
     microphone = AKMicrophone()
-    analyzer = AKFrequencyTracker(microphone)
+    tracker = AKFrequencyTracker(microphone)
+    silence = AKBooster(tracker, gain: 0)
   }
   
   /**
   Starts the tuner.
   */
   public func start() {
-    AKSettings.audioInputEnabled = true
     microphone.start()
-    analyzer.start()
+    tracker.start()
+    AudioKit.output = silence 
+    AudioKit.start()
     
     if timer == nil {
       timer = DispatchTimer(interval: 0.03, closure: { (t, i) -> Void in
         if let d = self.delegate {
-          if self.analyzer.amplitude > self.threshold {
-            let amplitude = self.analyzer.amplitude
-            let frequency = self.smooth(self.analyzer.frequency)
+          if self.tracker.amplitude > self.threshold {
+            let amplitude = self.tracker.amplitude
+            let frequency = self.smooth(self.tracker.frequency)
             let output = Tuner.newOutput(frequency, amplitude)
             DispatchQueue.main.async {
               d.tunerDidUpdate(self, output: output)
@@ -173,7 +176,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
   */
   public func stop() {
     microphone.stop()
-    analyzer.stop()
+    tracker.stop()
     timer?.pause()
   }
   

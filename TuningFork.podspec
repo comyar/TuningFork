@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name          = "TuningFork"
-  s.version       = "0.1.1"
+  s.version       = "0.2.0"
   s.summary       = "A Simple Tuner"
   s.description = <<-DESC
                   Allows for easy reading of pitch, frequency, amplitude, etc. from a device's microphone.
