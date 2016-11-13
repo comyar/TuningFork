@@ -34,7 +34,7 @@ import Chronos
 
 private let flats = ["C", "D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"]
 private let sharps = ["C", "C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"]
-private let frequencies: [Float] = [
+private let frequencies: [Double] = [
   16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87, // 0
   32.70, 34.65, 36.71, 38.89, 41.20, 43.65, 46.25, 49.00, 51.91, 55.00, 58.27, 61.74, // 1
   65.41, 69.30, 73.42, 77.78, 82.41, 87.31, 92.50, 98.00, 103.8, 110.0, 116.5, 123.5, // 2
@@ -62,7 +62,7 @@ by a Tuner.
   - parameter tuner: Tuner that performed the update.
   - parameter output: Contains information decoded by the Tuner.
   */
-  func tunerDidUpdate(tuner: Tuner, output: TunerOutput)
+  func tunerDidUpdate(_ tuner: Tuner, output: TunerOutput)
 }
 
 // MARK:- TunerOutput
@@ -75,12 +75,12 @@ Contains information decoded by a Tuner, such as frequency, octave, pitch, etc.
   /**
   The octave of the interpreted pitch.
   */
-  public private(set) var octave: Int = 0
+  public fileprivate(set) var octave: Int = 0
   
   /**
   The interpreted pitch of the microphone audio.
   */
-  public private(set) var pitch: String = ""
+  public fileprivate(set) var pitch: String = ""
   
   /**
   The difference between the frequency of the interpreted pitch and the actual
@@ -89,19 +89,19 @@ Contains information decoded by a Tuner, such as frequency, octave, pitch, etc.
   For example if the microphone audio has a frequency of 432Hz, the pitch will
   be interpreted as A4 (440Hz), thus making the distance -8Hz.
   */
-  public private(set) var distance: Float = 0.0
+  public fileprivate(set) var distance: Double = 0.0
   
   /**
   The amplitude of the microphone audio.
   */
-  public private(set) var amplitude: Float = 0.0
+  public fileprivate(set) var amplitude: Double = 0.0
   
   /**
   The frequency of the microphone audio.
   */
-  public private(set) var frequency: Float = 0.0
+  public fileprivate(set) var frequency: Double = 0.0
   
-  private override init() {}
+  fileprivate override init() {}
 }
 
 
@@ -112,8 +112,8 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
 */
 @objc public class Tuner: NSObject {
   
-  private let updateInterval: NSTimeInterval = 0.03
-  private let smoothingBufferCount = 30
+  fileprivate let updateInterval: TimeInterval = 0.03
+  fileprivate let smoothingBufferCount = 30
     
   /**
   Object adopting the TunerDelegate protocol that should receive callbacks
@@ -121,12 +121,12 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
   */
   public var delegate: TunerDelegate?
   
-  private let threshold: Float
-  private let smoothing: Float
-  private let microphone: AKMicrophone
-  private let analyzer: AKAudioAnalyzer
-  private var timer: DispatchTimer?
-  private var smoothingBuffer: [Float] = []
+  fileprivate let threshold: Double
+  fileprivate let smoothing: Double
+  fileprivate let microphone: AKMicrophone
+  fileprivate let analyzer: AKFrequencyTracker
+  fileprivate var timer: DispatchTimer?
+  fileprivate var smoothingBuffer: [Double] = []
   
   /**
   Initializes a new Tuner.
@@ -136,32 +136,30 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
    
   */
   public init(threshold: Float = 0.0, smoothing: Float = 0.25) {
-    self.threshold = min(abs(threshold), 1.0)
-    self.smoothing = min(abs(smoothing), 1.0)
+    self.threshold = Double(min(abs(threshold), 1.0))
+    self.smoothing = Double(min(abs(smoothing), 1.0))
     microphone = AKMicrophone()
-    analyzer = AKAudioAnalyzer(input: microphone.output)
-    AKOrchestra.addInstrument(microphone)
-    AKOrchestra.addInstrument(analyzer)
+    analyzer = AKFrequencyTracker(microphone)
   }
   
   /**
   Starts the tuner.
   */
   public func start() {
-    AKSettings.shared().audioInputEnabled = true
+    AKSettings.audioInputEnabled = true
     microphone.start()
     analyzer.start()
     
     if timer == nil {
       timer = DispatchTimer(interval: 0.03, closure: { (t, i) -> Void in
         if let d = self.delegate {
-          if self.analyzer.trackedAmplitude.value > self.threshold {
-            let amplitude = self.analyzer.trackedAmplitude.value
-            let frequency = self.smooth(self.analyzer.trackedFrequency.value)
+          if self.analyzer.amplitude > self.threshold {
+            let amplitude = self.analyzer.amplitude
+            let frequency = self.smooth(self.analyzer.frequency)
             let output = Tuner.newOutput(frequency, amplitude)
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async {
               d.tunerDidUpdate(self, output: output)
-            })
+            }
           }
         }
       })
@@ -183,7 +181,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
    Exponential smoothing:
    https://en.wikipedia.org/wiki/Exponential_smoothing
   */
-  private func smooth(value: Float) -> Float {
+  fileprivate func smooth(_ value: Double) -> Double {
     var frequency = value
     if smoothingBuffer.count > 0 {
       let last = smoothingBuffer.last!
@@ -196,7 +194,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     return frequency
   }
   
-  static func newOutput(frequency: Float, _ amplitude: Float) -> TunerOutput {
+  static func newOutput(_ frequency: Double, _ amplitude: Double) -> TunerOutput {
     let output = TunerOutput()
     
     var norm = frequency
@@ -208,7 +206,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     }
     
     var i = -1
-    var min = Float.infinity
+    var min = Double.infinity
     for n in 0...frequencies.count-1 {
       let diff = frequencies[n] - norm
       if abs(diff) < abs(min) {
