@@ -5,6 +5,7 @@
 [![Version](http://img.shields.io/cocoapods/v/TuningFork.svg)](http://cocoapods.org/?q=TuningFork)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/comyar/TuningFork)
 [![License](http://img.shields.io/cocoapods/l/TuningFork.svg)](https://github.com/comyar/TuningFork/blob/master/LICENSE)
+[![git-brag-stats](https://labs.turbo.run/git-brag?user=comyar&repo=TuningFork)](https://github.com/comyar/TuningFork)
 
 TuningFork is a simple utility for processing microphone input and interpreting pitch, frequency, amplitude, etc. 
 
