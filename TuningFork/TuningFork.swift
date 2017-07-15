@@ -177,6 +177,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
   public func stop() {
     microphone.stop()
     tracker.stop()
+    AudioKit.stop()
     timer?.pause()
   }
   
