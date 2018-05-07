@@ -151,7 +151,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
     microphone.start()
     tracker.start()
     AudioKit.output = silence 
-    AudioKit.start()
+    try? AudioKit.start()
     
     if timer == nil {
       timer = DispatchTimer(interval: 0.03, closure: { (t, i) -> Void in
@@ -177,7 +177,7 @@ A Tuner uses the devices microphone and interprets the frequency, pitch, etc.
   public func stop() {
     microphone.stop()
     tracker.stop()
-    AudioKit.stop()
+    try? AudioKit.stop()
     timer?.pause()
   }
   
