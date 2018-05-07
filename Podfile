@@ -5,7 +5,7 @@ inhibit_all_warnings!
 use_frameworks!
 
 target 'TuningFork' do
-  pod 'AudioKit', '~> 4.0'
+  pod 'AudioKit', '4.0.4'
   pod 'Chronos-Swift', '~> 0.3.0'
 end
 
