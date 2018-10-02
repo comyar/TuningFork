@@ -1,16 +1,17 @@
-source 'https://github.com/CocoaPods/Specs.git'
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
 
-platform :ios, '9.0'
 inhibit_all_warnings!
-use_frameworks!
 
 target 'TuningFork' do
-  pod 'AudioKit', '~> 3.4'
-  pod 'Chronos-Swift', '~> 0.3.0'
-end
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
 
-target 'TuningForkTests' do
-  pod 'AudioKit', '~> 3.4'
-  pod 'Chronos-Swift', '~> 0.3.0'
-end
+    pod 'AudioKit/Core'
 
+  target 'TuningForkTests' do
+    inherit! :search_paths
+        pod 'AudioKit/Core'
+  end
+
+end
