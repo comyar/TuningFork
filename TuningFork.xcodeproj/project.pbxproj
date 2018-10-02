@@ -177,7 +177,6 @@
 				DDBA27D21BEFEAAF00A41D1E /* Sources */,
 				DDBA27D31BEFEAAF00A41D1E /* Frameworks */,
 				DDBA27D41BEFEAAF00A41D1E /* Resources */,
-				3F144081E04EC81301192237 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,28 +244,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3F144081E04EC81301192237 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TuningForkTests/Pods-TuningForkTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Chronos-Swift/Chronos.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Chronos.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TuningForkTests/Pods-TuningForkTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5037349145427816FE3A44AC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

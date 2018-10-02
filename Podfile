@@ -8,12 +8,10 @@ target 'TuningFork' do
   use_frameworks!
 
     pod 'AudioKit/Core'
-    pod 'Chronos-Swift'
 
   target 'TuningForkTests' do
     inherit! :search_paths
         pod 'AudioKit/Core'
-        pod 'Chronos-Swift'
   end
 
 end
